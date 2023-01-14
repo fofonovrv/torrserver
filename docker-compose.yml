@@ -1,11 +1,19 @@
 version: '3.9'
 services:
     torrserver:
-        image: asudarchikov/torrserver
-        container_name: torrserver
-        restart: unless-stopped
-        ports:
-            - 8090:8090
+      image: ghcr.io/yourok/torrserver:latest
+      container_name: torrserver
+      restart: unless-stopped
+      ports:
+        - 8090:8090
+      environment:
+        - TS_HTTPAUTH=1
+        - TS_CONF_PATH=/opt/config
+        - TS_TORR_DIR=/opt/torr_files
+        - TS_LOG_PATH=/opt/config/torrserver.log
+      volumes:
+        - ./files:/opt/torr_files
+        - ./config/torrserver:/opt/config
     jackett:
       image: lscr.io/linuxserver/jackett:latest
       container_name: jackett
@@ -15,7 +23,7 @@ services:
         - TZ=Europe/Moscow
           #- RUN_OPTS=<run options here> #optional
       volumes:
-        - ./config:/config
+        - ./config/jackett:/config
         - ./downloads:/downloads
       ports:
         - 9117:9117
