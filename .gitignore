@@ -1,0 +1,5 @@
+#
+/config/jackett/DataProtection/
+/config/jackett/log.txt
+/config/torrserver/config.db
+/config/torrserver/torrserver.log
